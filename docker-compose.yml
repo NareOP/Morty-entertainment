@@ -1,0 +1,40 @@
+version: '2'
+services:
+  morty-ds-base:
+    container_name: morty-ds-base
+    build:
+      context: .
+    environment:
+      DB_HOST: morty-ds-postgres
+      DB_NAME: morty_ds
+      DB_PASSWORD: password
+      DB_PORT: 5432
+      DB_USERNAME: morty_ds
+      PORT: 80
+      NODE_ENV: development
+      VIRTUAL_HOST: morty-ds.docker
+    command: ['echo', "I only exist to be extended so I'll just exit, thanks"]
+
+  morty-ds:
+    container_name: morty-ds
+    extends: morty-ds-base
+    depends_on:
+      - morty-ds-postgres
+    environment:
+      - SECRET
+    ports:
+      - 80
+    volumes:
+      - ${PWD}:/app
+    command: ['bin/boot.sh']
+
+  morty-ds-postgres:
+    container_name: morty-ds-postgres
+    image: postgres:14.1
+    environment:
+      POSTGRES_DB: morty_ds
+      POSTGRES_USER: morty_ds
+      POSTGRES_PASSWORD: password
+      VIRTUAL_HOST: morty-ds-postgres.docker
+    ports:
+      - 5432

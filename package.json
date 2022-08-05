@@ -1,0 +1,55 @@
+{
+  "name": "morty",
+  "version": "0.1.0",
+  "description": "Time tracking app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OP-Armenia/Morty.git"
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "check-eof": "./bin/check-eof-newline.sh",
+    "start": "node src/server.js",
+    "dev": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:80 -L",
+    "migration:init": "sequelize-cli init"
+  },
+  "homepage": "https://github.com/OP-Armenia/Morty#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit",
+      "check-eof": "npm run check-eof"
+    }
+  },
+  "lint-staged": {
+    "(src)/**/*.+(js|json)": [
+      "eslint --fix"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-yml": "^0.14.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^10.3.0",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
+    "sequelize-cli": "^6.4.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "express-promise-router": "^4.1.1",
+    "helmet": "^5.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.17.0",
+    "umzug": "^2.3.0"
+  }
+}
